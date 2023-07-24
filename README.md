@@ -305,6 +305,59 @@ One day, Timmy was outside flying his kite when he saw something strange
 achieved tok/s: 150.457956
 ```
 
+### Cross Compiling
+
+Cross compiling C code with `zig cc`:
+
+- x86_64-linux-musl
+
+```sh
+❯ zig cc -O3 -Ofast -ffast-math -o runz11 run.c -lm -target x86_64-linux-musl
+❯ file runz11
+runz11: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, with debug_info, not stripped
+
+❯ ./runz11 out/model.bin
+achieved tok/s: 176.187199
+```
+
+- aarch64-linux-gnu
+
+```sh
+❯ zig cc -O3 -Ofast -ffast-math -o runz10 run.c -lm -target aarch64-linux-gnu
+❯ ./runz10 out/model.bin
+exec: Failed to execute process: './runz10' the file could not be run by the operating system.
+❯ file runz10
+runz10: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-aarch64.so.1, for GNU/Linux 2.0.0, with debug_info, not stripped
+```
+
+- aarch64-linux-musl
+
+```sh
+❯ zig cc -O3 -Ofast -ffast-math -o runz11 run.c -lm -target aarch64-linux-musl
+❯ file runz11
+runz11: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, with debug_info, not stripped
+
+❯ ./runz11 out/model.bin
+exec: Failed to execute process: './runz11' the file could not be run by the operating system.
+```
+
+Binary file sizes:
+
+```sh
+$ ls -lah runz*
+Permissions Size User Date Modified Name
+.rwxrwxr-x  108k ggg  24 Jul 23:07  runz2
+.rwxrwxr-x  108k ggg  24 Jul 23:08  runz3
+.rwxrwxr-x   66k ggg  24 Jul 23:08  runz4
+.rwxrwxr-x  106k ggg  24 Jul 23:09  runz5
+.rwxrwxr-x  108k ggg  24 Jul 23:10  runz6
+.rwxrwxr-x  108k ggg  24 Jul 23:11  runz7
+.rwxrwxr-x   66k ggg  24 Jul 23:13  runz8
+.rwxrwxr-x   66k ggg  24 Jul 23:15  runz9
+.rwxrwxr-x   35k ggg  24 Jul 23:30  runz10
+.rwxrwxr-x  104k ggg  24 Jul 23:38  runz11
+```
+
 The original README is below.
 
 ---
