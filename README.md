@@ -53,6 +53,22 @@ $ OMP_NUM_THREADS=4 ./run3 out44m/model44m.bin
 achieved tok/s: 69.797560
 ```
 
+With parallelism, mmap, and 15M parameter model:
+
+```sh
+$ gcc -Ofast -ffast-math -fopenmp -o run20 run.c -lm
+$ OMP_NUM_THREADS=4 ./run20 out/model.bin
+achieved tok/s: 287.964004
+```
+
+With parallelism, mmap, and 44M parameter model:
+
+```sh
+$ gcc -Ofast -ffast-math -fopenmp -o run20 run.c -lm
+$ ./run20 out44m/model44m.bin
+achieved tok/s: 49.679798
+```
+
 See [performance](#performance) for compile flags that can significantly speed this up.
 
 ### Runs
