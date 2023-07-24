@@ -29,6 +29,21 @@ $ zig cc -O3 -Ofast -ffast-math -o runz11 run.c -lm -target x86_64-linux-musl
 achieved tok/s: 46.642981
 ```
 
+With parallelism and 15M parameter model:
+
+```sh
+$ gcc -Ofast -ffast-math -fopenmp -o run3 run.c -lm
+achieved tok/s: 198.295895
+```
+
+With parallelism and 44M parameter model:
+
+```sh
+$ gcc -Ofast -ffast-math -fopenmp -o run3 run.c -lm
+$ ./run3 out44m/model44m.bin
+achieved tok/s: 47.969270
+```
+
 See [performance](#performance) for compile flags that can significantly speed this up.
 
 ### Runs
@@ -384,6 +399,64 @@ One day, Timmy was outside flying his kite when he saw something strange
 achieved tok/s: 150.457956
 ```
 
+**Compiler: gcc**
+
+**Model: 15M parameter**
+
+**Use OpenMP for parallelism**
+
+Run 1:
+
+```sh
+$ gcc -O3 -ffast-math -fopenmp -o run1 run.c -lm
+$ ./run1 out/model.bin
+achieved tok/s: 169.088507
+```
+
+Run 2:
+
+```sh
+$ gcc -Ofast -fopenmp -o run2 run.c -lm
+$ ./run2 out/model.bin 
+achieved tok/s: 177.408177
+```
+
+Run 3:
+
+```sh
+$ gcc -Ofast -ffast-math -fopenmp -o run3 run.c -lm
+$ ./run3 out/model.bin
+achieved tok/s: 198.295895
+```
+
+**Model: 44M parameter**
+
+**Use OpenMP for parallelism**
+
+Run 1:
+
+```sh
+$ gcc -O3 -ffast-math -fopenmp -o run1 run.c -lm
+$ ./run1 out44m/model44m.bin
+achieved tok/s: 44.552732
+```
+
+Run 2:
+
+```sh
+$ gcc -Ofast -fopenmp -o run2 run.c -lm
+$ ./run2 out44m/model44m.bin
+achieved tok/s: 45.808356
+```
+
+Run 3:
+
+```sh
+$ gcc -Ofast -ffast-math -fopenmp -o run3 run.c -lm
+$ ./run3 out44m/model44m.bin
+achieved tok/s: 47.969270
+```
+
 ### Cross Compiling
 
 Cross compiling C code with `zig cc`:
@@ -553,6 +626,8 @@ gcc -O3 -o run run.c -lm
 `-funsafe-math-optimizations` a more limited form of -ffast-math, that still breaks IEEE compliance but doesn't have all of the numeric/error handling changes from `-ffasth-math`. See [the GCC docs](https://gcc.gnu.org/wiki/FloatingPointMath) for more information.
 
 `-march=native` Compile the program to use the architecture of the machine you're compiling on rather than a more generic CPU. This may enable additional optimizations and hardware-specific tuning such as improved vector instructions/width.
+
+`-fopenmp` Use OpenMP for parallelism.
 
 Putting a few of these together, the fastest throughput I saw so far on my MacBook Air (M1) is with:
 
