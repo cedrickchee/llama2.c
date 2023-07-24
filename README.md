@@ -32,8 +32,9 @@ achieved tok/s: 46.642981
 With parallelism and 15M parameter model:
 
 ```sh
-$ gcc -Ofast -ffast-math -fopenmp -o run3 run.c -lm
-achieved tok/s: 198.295895
+$ gcc -Ofast -ffast-math -fopenmp -march=native -mtune=native -o run15 run.c -lm
+$ ./run15 out/model.bin
+achieved tok/s: 200.626959
 
 # set number of threads
 $ OMP_NUM_THREADS=4 ./run3 out/model.bin
@@ -437,6 +438,8 @@ $ ./run3 out/model.bin
 achieved tok/s: 198.295895
 ```
 
+**Compiler: gcc**
+
 **Model: 44M parameter**
 
 **Use OpenMP for parallelism**
@@ -463,6 +466,32 @@ Run 3:
 $ gcc -Ofast -ffast-math -fopenmp -o run3 run.c -lm
 $ ./run3 out44m/model44m.bin
 achieved tok/s: 47.969270
+```
+
+**Compiler: gcc**
+
+**Model: 15M parameter**
+
+**Use OpenMP for parallelism**
+
+**Tune specifically for your hardware**
+
+```sh
+$ gcc -Ofast -ffast-math -fopenmp -march=native -mtune=native -o run15 run.c -lm
+$ ./run15 out/model.bin
+achieved tok/s: 200.626959
+```
+
+**Model: 44M parameter**
+
+**Use OpenMP for parallelism**
+
+**Tune specifically for your hardware**
+
+```sh
+$ gcc -Ofast -ffast-math -fopenmp -march=native -mtune=native -o run15 run.c -lm
+$ ./run15 out44m/model44m.bin
+achieved tok/s: 47.297921
 ```
 
 ### Cross Compiling
@@ -636,6 +665,8 @@ gcc -O3 -o run run.c -lm
 `-march=native` Compile the program to use the architecture of the machine you're compiling on rather than a more generic CPU. This may enable additional optimizations and hardware-specific tuning such as improved vector instructions/width.
 
 `-fopenmp` Use OpenMP for parallelism.
+
+`-mtune, -march` Tell the compiler what kind of hardware you have. The flag `-march` tells the compiler about the minimal hardware your code should run on. The other flag `-mtune` is just an optimization hint, you tell the compile to generate code that runs best on your processors. See [Lemire's -mtune, -march in GCC blog post](https://lemire.me/blog/2018/07/25/it-is-more-complicated-than-i-thought-mtune-march-in-gcc/) for more information.
 
 Putting a few of these together, the fastest throughput I saw so far on my MacBook Air (M1) is with:
 
