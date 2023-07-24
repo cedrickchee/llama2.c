@@ -2,6 +2,8 @@
 
 (WIP) Rust, Zig, Go, and wasm port.
 
+![llama2_c_ss_20230724_225531](https://github.com/cedrickchee/llama2.c/assets/145605/0b7de882-4c1a-4eda-8541-000c68dcfcf1)
+
 ## benchmarks
 
 On my Linux laptop (Core i3) this runs at ~150 tokens/s. The fastest throughput I saw so far on Linux laptop is with:
