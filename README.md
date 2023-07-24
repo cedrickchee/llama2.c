@@ -172,7 +172,7 @@ achieved tok/s: 176.308540
 
 **Compiler: zig cc**
 
-**Model: 15M parameter**
+**Model: 44M parameter**
 
 Run 1:
 
