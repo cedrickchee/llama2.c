@@ -8,18 +8,25 @@
 
 On my Linux laptop (Core i3) this runs at ~150 tokens/s. The fastest throughput I saw so far on Linux laptop:
 
-With `zig cc` compiler:
+With `zig cc` compiler and 15M parameter model:
 
 ```sh
 $ zig cc -O3 -ffast-math -o runz4 run.c
 achieved tok/s: 176.917761
 ```
 
-With `gcc` compiler:
+With `gcc` compiler and 15M parameter model:
 
 ```sh
 $ gcc -O3 -Ofast -funsafe-math-optimizations -o run4 run.c -lm
 achieved tok/s: 171.890412
+```
+
+With `zig cc` compiler and 44M parameter model:
+
+```sh
+$ zig cc -O3 -Ofast -ffast-math -o runz11 run.c -lm -target x86_64-linux-musl
+achieved tok/s: 46.642981
 ```
 
 See [performance](#performance) for compile flags that can significantly speed this up.
@@ -27,6 +34,8 @@ See [performance](#performance) for compile flags that can significantly speed t
 ### Runs
 
 **Compiler: zig cc**
+
+**Model: 15M parameter**
 
 Run 1:
 
@@ -161,7 +170,77 @@ Her mom took the broken handle and went to the store to buy some tools. While th
 achieved tok/s: 176.308540
 ```
 
+**Compiler: zig cc**
+
+**Model: 15M parameter**
+
+Run 1:
+
+```sh
+$ ./runz4 out44m/model44m.bin
+achieved tok/s: 46.223988
+```
+
+Run 2:
+
+```sh
+$ ./runz2 out44m/model44m.bin
+achieved tok/s: 16.032064
+```
+
+Run 3:
+
+```sh
+$ ./runz5 out44m/model44m.bin
+achieved tok/s: 44.774814
+```
+
+Run 4:
+
+```sh
+$ ./runz6 out44m/model44m.bin
+achieved tok/s: 16.062241
+```
+
+Run 5:
+
+```sh
+$ ./runz8 out44m/model44m.bin
+achieved tok/s: 45.999730
+```
+
+Run 6:
+
+```sh
+$ ./runz11 out44m/model44m.bin
+ Once upon a time, there was a little girl named Lily. She loved to draw on the blackboard with colorful chalks. One day, Lily couldn't find her favorite blackboard. She looked everywhere for it, but it was nowhere to be found. 
+Lily asked her mom and dad if they could buy her a new blackboard, but they couldn't afford it. Lily felt restless and sad. Even though she didn't get to draw on her blackboard, she still had other things to do. 
+But then, something unexpected happened. Lily's cat came into her room and started to play with the blackboard. The cat was so busy that it accidentally knocked the blackboard off the shelf and it broke into many pieces. Lily was sad again, but she didn't give up. She decided to draw on a different board instead. And this time, she made sure to put it in a safe place so it wouldn't break again. The end.
+<s>
+ Once upon a time, there was a little girl named Lily. She loved to wear her red cap everywhere she went. One day, she went to the park to play. She was having so much fun on the swings when she heard a loud noise.
+She looked around and saw a little boy crying. She went over to him and asked him what was wrong. He said he lost his red cap and couldn't find it anywhere. Lily told him she would help him look for it.
+They searched all over the park, but they couldn't find the cap. Lily started to get worried because it was her favorite cap. They returned an object to the little boy, but it was too late. He had already gone home without his cap.
+Lily felt sad and guilty. She realized that it's not very nice to take things that don't belong to her. She learned a valuable lesson that day: it's important to always do the right thing, even if it's hard.
+<s>
+ Once upon a time, there was a boy named Timmy. Timmy loved to play with his toys and go on adventures. One day, Timmy found a big drawer in his room. He opened it and saw lots of toys inside. Timmy was so eager to play with all his toys, but they were all mixed up. So, Timmy decided to organize them.
+He put all the cars in one corner and all the dolls in another corner. He even put all the balls in the last corner. Timmy was so happy to see all his organized toys. He played with them for hours and had so much fun. From that day on, Timmy always remembered to organize his toys and make his room look nice.
+<s>
+ Once upon a time, there was a little girl named Lily. She loved to play outside in the park. One day, she was playing with her ball when she accidentally dropped it into a puddle. She started to cry because she thought she would never get her ball back.
+Suddenly, a police officer walked by and saw Lily crying. He asked her what was wrong and she told him about her ball. The police officer smiled and said, "Don't worry, I'll get your ball for you." He went to his car and drove away.
+After a few minutes, the police officer came back with the ball. Lily was so happy and thanked the police officer. The police officer was deaf, but he could still hear her, so Lily waved to him. From that day on, Lily was more careful when she played with her ball, but she also learned that there are kind people who can help when we need it.
+<s>
+ Once upon a time, in a small town, there was a big festival. All the people were happy. They played games, ate snacks, and danced to music. The town was brilliant.
+One day, a little boy named Timmy wanted to stop the festival. He thought if he made the best game, everyone would have more fun. So, he played a game where he hid things. He found a big, shiny ball and hid it in the park.
+Soon, people saw Timmy's game and started playing it. But no one could find the ball. They kept looking and looking. Timmy felt sad. He knew that kids should not play tricks. The festival had a big twist. Everyone who forgot to play a game laughed at a silly man.
+The moral of the story is: it's better to play and have fun than to play tricks on or make a mess.
+<s>
+ Once upon a time, in a big tree, there was a nest. In the nest, there were many baby birds. The baby birds
+achieved tok/s: 46.642981
+```
+
 **Compiler: gcc**
+
+**Model: 15M parameter**
 
 Run 1:
 
