@@ -6,15 +6,162 @@
 
 ## benchmarks
 
-On my Linux laptop (Core i3) this runs at ~150 tokens/s. The fastest throughput I saw so far on Linux laptop is with:
+On my Linux laptop (Core i3) this runs at ~150 tokens/s. The fastest throughput I saw so far on Linux laptop:
+
+With `zig cc` compiler:
+
+```sh
+$ zig cc -O3 -ffast-math -o runz4 run.c
+achieved tok/s: 176.917761
+```
+
+With `gcc` compiler:
 
 ```sh
 $ gcc -O3 -Ofast -funsafe-math-optimizations -o run4 run.c -lm
+achieved tok/s: 171.890412
 ```
 
 See [performance](#performance) for compile flags that can significantly speed this up.
 
-**Runs**
+### Runs
+
+**Compiler: zig cc**
+
+Run 1:
+
+```sh
+$ zig cc -o run_zig run.c
+$ ./run_zig out/model.bin
+ Once upon a time, there was a little girl named Lily. Lily loved to play hide and seek with her friends. One day, Lily went to find her friends to hide. She looked high and low, but she couldn't find them anywhere. 
+She asked her mom, "Mommy, do you permit me to hide so I can pretend to be the number zero?" 
+Her mom said, "Yes, Lily, you can hide in the living room and I'll look for you. But be careful not to wander into the room." 
+Lily agreed and ran to the living room. She saw her friends hiding behind the couch, but they were not in the corner. Suddenly, they heard a loud noise. They turned around and saw the curtain moving. 
+One of her friends giggled and said, "Surprise! Lily, you're the first one to hide behind the curtain!" 
+Lily giggled back and said, "You're the best at hiding, but I'm still the best at the sounds!" 
+From that day on, Lily's friends played peek-a-boo with b
+achieved tok/s: 9.488158
+```
+
+Run 2:
+
+```sh
+$ zig cc -O3 -o runz2 run.c
+$ ./runz2 out/model.bin
+ Once upon a time, there was a man who had a big axe. He used his axe to cut wood for his family and friends. One day, he went to the forest and saw a deer. The deer looked very serious and the man wanted to be friends with it. The man put down his axe and the deer stopped running. From that day on, the man and the deer were the best of friends. They would go on adventures together and share their food. The end.
+<s>
+ Once upon a time, there was a little boy named Timmy. Timmy was very shy and didn't like to talk to people he didn't know. One day, Timmy went to the store with his mommy and saw a big bag of cookies. Timmy wanted to buy the cookies, but his mommy said no because they were too expensive.
+Timmy started to cry and said, "I want cookies, mommy!" His mommy said, "I know you want cookies, but they are too many and we don't want to buy them." Timmy didn't understand why they couldn't buy the cookies, so he asked his mommy.
+His mommy explained,
+achieved tok/s: 53.067993
+```
+
+Run 3:
+
+```sh
+$ zig cc -O3 -Ofast -o runz3 run.c
+$ ./runz3 out/model.bin
+ One day, a fat cat named Tom went to play with his friends. Tom saw a big tree and wanted to climb it. He got ready to go up, but his friend Sam the dog said, "No, it's not safe!"
+Tom was not happy. He really wanted to climb the tree and play with his friends. So, Tom decided to quit trying to climb the tree. He went back to play with his friends instead.
+While playing, Tom saw a big bird sitting on a branch. The bird was sad because Tom had quit playing too. The bird said, "I'm sorry, I didn't know you didn't want to climb the tree!" Tom thought about it and had an idea. He asked the bird, "Can you please let me go on my lawn and play with my friends?" The bird agreed and Tom was very happy. From that day on, Tom and the bird played together every day.
+<s>
+ Once upon a time, there was a cute puppy named Max. Max loved to play fetch with his owner, Lily. Lily would throw a ball and Max would chase after it. One day, Max found a bone in the park. He picked
+achieved tok/s: 53.534086
+```
+
+Run 4:
+
+```sh
+$ zig cc -O3 -ffast-math -o runz4 run.c
+$ ./runz4 out/model.bin
+ Once upon a time, there was a little boy named Timmy. Timmy loved going to the park to play on the swings and slide. One day, Timmy saw a wise old owl sitting on a tree branch. 
+"Hello, Mr. Owl," said Timmy. 
+"Hello, Timmy," replied the owl. "What are you doing up there?" 
+"I'm just looking at this tree," said Timmy. 
+"Well, been here to get some food for me before it rained," said the owl. 
+"I love nature," said Timmy. 
+"Why do you belong here in the rain?" asked the owl. 
+"I love the sun and the rain," replied Timmy. 
+The owl smiled. "I'm glad you like it here. Now, let's sit under the tree and read a book together." 
+And so, Timmy and the wise old owl sat under the tree, enjoying the cold rain and the beauty of nature.
+<s>
+ One day, a boy named Tom went to the woods with his dad. They wanted to find a rabbit to take home. The sky
+achieved tok/s: 176.917761
+```
+
+Run 5:
+
+```sh
+$ zig cc -O3 -funsafe-math-optimizations -o runz5 run.c
+$ ./runz5 out/model.bin
+ Once upon a time, there was a little duck named Ducky. Ducky loved to play in the pond all day long. One day, Ducky saw a big puddle and wanted to play in it. But when Ducky got closer, it started to rain. The rain was coming down hard and the puddle got bigger and bigger. Ducky got scared and started to splash in the puddle.
+Suddenly, a kind frog named Froggy came to help Ducky. Froggy helped Ducky get up and they both started to jump in the puddle. They splashed and played until they were tired. Then, they saw a big tree and decided to rest under it. Ducky was very happy to have a place to rest and the frog was happy to have a new friend. From that day on, they played together every day and had lots of fun. The end.
+<s>
+ Once upon a time, there was a little bird. The bird had many feathers. It liked to run and play in the big tree. One day, the bird saw a big fire. It was very hot and bright. The bird knew it had to help.
+
+achieved tok/s: 161.412358
+```
+
+Run 6:
+
+```sh
+$ zig cc -Ofast -o runz6 run.c
+$ ./runz6 out/model.bin
+ Once upon a time, there was a little boy named Timmy. He had a toy car that he loved to play with. One day, he went to the park with his mom and saw a big dog. The dog was very friendly, but Timmy's toy car was spoiled with a scratch when he played with it. 
+"Look, Mommy! The dog has a hurt do Snowy," said Timmy. 
+"It's okay, Timmy. Snowy has a patch on her knee. She needs some love," replied Timmy's mom. 
+Timmy took out his toy car and started to play with it again. His mom watched him and smiled. 
+"This is a fun toy that can heal Snowy's pain," said his mom. 
+Timmy nodded and continued to enjoy playing with his toy car. He knew that even if something got spoiled, Snowy would still be his friend to him.
+<s>
+ Once upon a time, there was a little girl named Lily. She loved the color purple and had a purple dress. One day, Lily went to the beach to surf with her friends. 
+
+achieved tok/s: 53.668763
+```
+
+Run 7:
+
+```sh
+$ zig cc -O3 -march=native -o runz7 run.c
+$ ./runz7 out/model.bin
+ Once upon a time, there was a little boy named Timmy. Timmy loved to play with his soft toys in his bedroom. One day, his mom told him not to touch the stairs because they are dangerous. Timmy didn't understand why they were dangerous, so he asked his mom why they were dangerous.
+He thought for a moment and then he started to imagine what would happen if he climbed up the stairs with his toys inside. Suddenly, he found himself at the top of the stairs! He started to climb up and down, and he was so happy that he could see everything from up close.
+When he got to the top, he saw a big, beautiful window. He could see all the pretty flowers and trees outside. Timmy was so excited he wanted to stay there forever. But then, he remembered what his mom had said and decided not to go back downstairs. He hugged his soft toys and fell asleep, feeling very happy.
+<s>
+ Once upon a time, there was a little ant named Andy. Andy loved to march around the garden all day long. One day, he met a caterpillar named Sammy.
+"Hi there,
+achieved tok/s: 53.211391
+```
+
+Run 8:
+
+```sh
+$ zig cc -O3 -Ofast -ffast-math -o runz8 run.c
+$ ./runz8 out/model.bin
+ One day, a big parade was in town. Many people came to see the parade. There were big balloons, loud music, and fun toys. Everyone was happy to watch the parade.
+A little boy named Tim was very excited. He clapped his hands together and started to march. His mom joined him, too. They marched and danced in the parade. The people in the parade clapped louder and louder. Tim and his mom laughed and clapped.
+At the end of the parade, everyone in the town said, "Thank you, Tim, for the fun and the music!" Tim was happy that he could share the incredible parade with everyone. He waved goodbye to his mom and dad as the parade disappeared.
+<s>
+ Once upon a time, there was a little boy named Tim. Tim had a toy whip that he loved to play with. One day, Tim went to the park to play with his whip. He would run and whistle as he played. He did not see thing that was under a big rock. Tim was careless with his whip.
+A big dog came and heard Tim barking.
+achieved tok/s: 176.187199
+```
+
+Run 9:
+
+```sh
+$ zig cc -O3 -Ofast -ffast-math -o runz9 run.c -lm
+$ ./runz9 out/model.bin
+ Once upon a time, there was a little girl named Lily. She loved to play outside with her dog, Max. One day, while they were playing, Max accidentally broke the handle of his leash. Lily got very sad and didn't know what to do.
+Her mom saw her crying and asked what happened. Lily told her about Max and how he broke the handle. Her mom said, "Don't worry, we can restore it." Lily was very happy to hear that and asked her mom how they could fix it.
+Her mom took the broken handle and went to the store to buy some tools. While they were there, they saw a dependable man selling balloons. Lily asked her mom if she could buy one, and her mom said yes. Lily was very happy and said, "Thank you, Mommy! You are so nice."
+<s>
+ One day, a little boy named Tim found a bean. It was a big, brown bean. Tim felt very lucky. He wanted to send the bean to his friend, Sam. So, he went to Sam's house.
+"Sam, look at my bean!" said Tim. "I get to send it to
+achieved tok/s: 176.308540
+```
+
+**Compiler: gcc**
 
 Run 1:
 
