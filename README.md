@@ -2,7 +2,7 @@
 
 (WIP) Rust, Zig, Go, and wasm port.
 
-## Performance
+## benchmarks
 
 On my Linux laptop (Core i3) this runs at ~150 tokens/s. The fastest throughput I saw so far on Linux laptop is with:
 
