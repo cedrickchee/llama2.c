@@ -34,6 +34,10 @@ With parallelism and 15M parameter model:
 ```sh
 $ gcc -Ofast -ffast-math -fopenmp -o run3 run.c -lm
 achieved tok/s: 198.295895
+
+# set number of threads
+$ OMP_NUM_THREADS=4 ./run3 out/model.bin
+achieved tok/s: 320.400501
 ```
 
 With parallelism and 44M parameter model:
@@ -42,6 +46,10 @@ With parallelism and 44M parameter model:
 $ gcc -Ofast -ffast-math -fopenmp -o run3 run.c -lm
 $ ./run3 out44m/model44m.bin
 achieved tok/s: 47.969270
+
+# set number of threads
+$ OMP_NUM_THREADS=4 ./run3 out44m/model44m.bin
+achieved tok/s: 69.797560
 ```
 
 See [performance](#performance) for compile flags that can significantly speed this up.
