@@ -6,7 +6,7 @@
 
 ## benchmarks
 
-On my Linux laptop (Core i3) this runs at ~150 tokens/s. The fastest throughput I saw so far on Linux laptop:
+On my Linux laptop (Ice Lake/Core i7 processor) this runs at ~150 tokens/s. The fastest throughput I saw so far on Linux laptop:
 
 With `zig cc` compiler and 15M parameter model:
 
@@ -53,7 +53,7 @@ $ OMP_NUM_THREADS=4 ./run3 out44m/model44m.bin
 achieved tok/s: 69.797560
 ```
 
-With parallelism, mmap, and 15M parameter model:
+With parallelism, [mmap patch](https://github.com/karpathy/llama2.c/pull/30), and 15M parameter model:
 
 ```sh
 $ gcc -Ofast -ffast-math -fopenmp -o run20 run.c -lm
@@ -61,7 +61,7 @@ $ OMP_NUM_THREADS=4 ./run20 out/model.bin
 achieved tok/s: 287.964004
 ```
 
-With parallelism, mmap, and 44M parameter model:
+With parallelism, [mmap patch](https://github.com/karpathy/llama2.c/pull/30), and 44M parameter model:
 
 ```sh
 $ gcc -Ofast -ffast-math -fopenmp -o run20 run.c -lm
