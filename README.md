@@ -1,6 +1,7 @@
-# llama2.c ports
+# llama2.c optimizations
 
-(WIP) Rust, Zig, Go, and wasm port.
+- Performance benchmarks (micro) and optimizations.
+- (WIP) Zig and wasm port.
 
 ![llama2_c_ss_20230724_225531](https://github.com/cedrickchee/llama2.c/assets/145605/0b7de882-4c1a-4eda-8541-000c68dcfcf1)
 
