@@ -1,6 +1,9 @@
 # llama2.c optimizations
 
 - Performance benchmarks (micro) and optimizations.
+- Experimental:
+  - [XNNPACK](https://github.com/google/XNNPACK)
+  - ~FBGEMM [code](https://github.com/pytorch/FBGEMM), paper: [Deep Learning Acceleration via Low Precision Computing (PDF)](https://mlforsystems.org/assets/slides/isca2019/MLforSystems2019_Summer_Deng.pdf), Facebook, ML for Systems, 2019~
 - (WIP) Zig and wasm port.
 
 ![llama2_c_ss_20230724_225531](https://github.com/cedrickchee/llama2.c/assets/145605/0b7de882-4c1a-4eda-8541-000c68dcfcf1)
